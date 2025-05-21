@@ -1,0 +1,95 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>통상임금 계산기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* CSS 생략 없이 포함됨 */
+    body {
+      font-family: 'Arial';
+      background: #f9f9f9;
+      padding: 30px;
+    }
+    .salary-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .salary-container h2 {
+      text-align: center;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .form-row label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-row input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .calc-button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="salary-container">
+    <h2>📊 통상임금 계산기</h2>
+    <div class="form-row">
+      <label for="basic">기본급 (월)</label>
+      <input id="basic" type="number" placeholder="예: 2500000">
+    </div>
+    <div class="form-row">
+      <label for="fixed">고정수당 (월)</label>
+      <input id="fixed" type="number" placeholder="예: 200000">
+    </div>
+    <div class="form-row">
+      <label for="days">소정근무일수</label>
+      <input id="days" type="number" placeholder="예: 21.75">
+    </div>
+    <div class="form-row">
+      <label for="hours">월 소정근로시간</label>
+      <input id="hours" type="number" placeholder="예: 209">
+    </div>
+    <button class="calc-button" onclick="calculate()">통상임금 계산하기</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const basic = parseFloat(document.getElementById('basic').value) || 0;
+      const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+      const days = parseFloat(document.getElementById('days').value) || 0;
+      const hours = parseFloat(document.getElementById('hours').value) || 0;
+
+      const total = basic + fixed;
+      const daily = days > 0 ? (total / days).toFixed(2) : "입력 필요";
+      const hourly = hours > 0 ? (total / hours).toFixed(2) : "입력 필요";
+
+      document.getElementById('result').innerHTML =
+        `<strong>✅ 1일 통상임금:</strong> ${daily} 원<br>
+         <strong>✅ 1시간 통상임금:</strong> ${hourly} 원`;
+    }
+  </script>
+</body>
+</html>
